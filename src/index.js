@@ -1,17 +1,15 @@
 
 module.exports = function toReadable (number) {
-//function toReadable (number) {
 	function numToArray(number){
-		let len = number.toString().length; //длинна числа
+		
 		let digitArr = [];
 		let n = number;
-		for(let i = len; i > 0; i--){
-		//console.log('i: ' + i + ' n: ' + n)
+		for(let i = number.toString().length; i > 0; i--){
 			if(n < 10){
 				digitArr[i-1] = n;
 			}
 			else {
-				digitArr[i-1] = n % 10; //отрезаем последнюю цифру
+				digitArr[i-1] = n % 10; 
 				n = Math.floor(n / 10);
 			}
 		}
@@ -19,51 +17,39 @@ module.exports = function toReadable (number) {
 	}
 
 	function uniqNum(n){
-		
 		let uniqNumArr = ['one','two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
 	 		'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-		let str = '';
-		if(n < 20){
-			str = uniqNumArr[n-1];
-		}
-		return str;
+		return uniqNumArr[n-1];
 	}
 
 
 	function createDozen(n){
 			let dozens = ['ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 			let digitArr = numToArray(n);
-			let str = '';
 			if(number % 10 === 0)
-				str = dozens[digitArr[0]-1];
+				return dozens[digitArr[0]-1];
 			else
-				str = dozens[digitArr[0]-1] + ' ' + uniqNum(digitArr[1]);
-			return str
+				return dozens[digitArr[0]-1] + ' ' + uniqNum(digitArr[1]);
 	}
 
-	function getHundred(n){ //20
-		let str = '';
-		str = uniqNum(n) + ' ' + 'hundred'
-		return str;
+	function getHundred(n){ 
+				return uniqNum(n) + ' ' + 'hundred';
 	}
-
 ///--------------------------------------------------
     
 	let str = '';
 	if(number === 0)
 		str = 'zero';
 
-	else if(number < 20){
+	else if(number < 20){ //1 -20
 		str = uniqNum(number);
 	}
-	else if (number >= 20 && number < 100){ //для случая от 20 до 99
+	else if (number >= 20 && number < 100){ //20 - 99
 		
 		str = createDozen(number);
 
 	}
-	else if (number > 99 && number < 1000){ //для случая от 100 до 999
-		
-
+	else if (number > 99 && number < 1000){ // 100 до 999
 		let s = numToArray(number)[0];
 		let d = number - s * 100;
 		if(number % 100 === 0){
@@ -77,6 +63,4 @@ module.exports = function toReadable (number) {
 
 	return str;
 }
-
-//console.log(toReadable(999))
 
